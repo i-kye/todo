@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>TODO LIST</title>
+</head>
+<body>
+    <div class = 'container text-center p-5'>
+        <h1 class = 'display-3 mb-3'>TODO LIST</h1>
+
+        <input type="text" id="input_box" placeholder="입력해주세요.">
+    
+        <button type="button" class="btn btn-info" onclick="submit()">입력하기</button>
+
+        <div id = 'todo_list_div'>
+    
+    </div>
+
+    </div>
+</body>
+
+<script>
+
+    const todoList = [];
+
+    function submit() {
+       const todo = document.getElementById('input_box').value;
+        const todoObject = {
+            text : todo,
+            isCanceled : false
+        }
+        todoList.push(todoObject);
+
+
+       const todoListDiv = document.getElementById('todo_list_div');
+
+       todoListDiv.innerHTML = '';
+        for (const item in todoList) {
+        
+            const todoItem = todoList[item];
+
+            if (todoItem.isCanceled) {
+                todoListDiv.innerHTML += `<li id = "todo-${item}" onclick="cancel('${item}')" style="text-decoration: line-through; cursor: grab;"> ${todoList[item].text} </li>`; 
+            }
+            
+            else {
+                todoListDiv.innerHTML += `<li id = "todo-${item}" onclick="cancel('${item}')" style = "cursor: grab;"> ${todoList[item].text} </li>`;     
+            }
+        } 
+    }
+
+    function cancel(id) {
+        const elementId = `todo-${id}`;
+        const todoItem = todoList[id];
+        if (todoItem.isCanceled) {
+            document.getElementById(elementId).style.textDecoration = 'none';
+            todoItem.isCanceled = false;
+        } else {
+            document.getElementById(elementId).style.textDecoration = ' line-through';
+            todoItem.isCanceled = true;
+
+        }
+    }
+</script>
+</html>
